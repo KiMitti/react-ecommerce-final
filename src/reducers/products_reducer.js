@@ -7,11 +7,33 @@ import {
   GET_SINGLE_PRODUCT_BEGIN,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
-} from '../actions'
+} from '../actions';
 
 const products_reducer = (state, action) => {
-  return state
-  throw new Error(`No Matching "${action.type}" - action type`)
-}
+  if (action.type === SIDEBAR_OPEN) {
+    return { ...state, isSidebarOpen: true };
+  }
+  if (action.type === SIDEBAR_CLOSE) {
+    return { ...state, isSidebarOpen: false };
+  }
+  if (action.type === GET_PRODUCTS_BEGIN) {
+    return { ...state, productsLoading: true };
+  }
+  if (action.type === GET_PRODUCTS_SUCCESS) {
+    const featured_products = action.payload.filter(
+      (item) => item.featured === true
+    );
+    return {
+      ...state,
+      productsLoading: false,
+      products: action.payload,
+      featuredProducts: featured_products,
+    };
+  }
+  if (action.type === GET_PRODUCTS_ERROR) {
+    return { ...state, productsLoading: false, productsError: true };
+  }
+  throw new Error(`No Matching "${action.type}" - action type`);
+};
 
-export default products_reducer
+export default products_reducer;
