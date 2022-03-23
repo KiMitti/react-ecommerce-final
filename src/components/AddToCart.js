@@ -1,13 +1,59 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { FaCheck } from 'react-icons/fa'
-import { useCartContext } from '../context/cart_context'
-import AmountButtons from './AmountButtons'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { FaCheck } from 'react-icons/fa';
+import { useCartContext } from '../context/cart_context';
+import AmountButtons from './AmountButtons';
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
-}
+const AddToCart = ({ product }) => {
+  const { id, stock, colors } = product;
+
+  const [amount, setAmount] = useState(1);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+
+  const changeValue = (value) => {
+    const newAmount = amount + value;
+    if (newAmount >= stock) {
+      setAmount(stock);
+    } else if (newAmount < 1) {
+      setAmount(1);
+    } else {
+      setAmount(newAmount);
+    }
+  };
+
+  return (
+    <Wrapper>
+      <div className='colors'>
+        <span>colors:</span>
+        <div>
+          {colors.map((color, index) => {
+            return (
+              <button
+                key={index}
+                className={
+                  color === selectedColor ? 'color-btn active' : 'color-btn'
+                }
+                style={{ background: color }}
+                onClick={() => {
+                  setSelectedColor(color);
+                }}
+              >
+                {color === selectedColor ? <FaCheck /> : ' '}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className='btn-container'>
+        <AmountButtons amount={amount} changeValue={changeValue} />
+        <Link to='/cart' className='btn'>
+          Add to Cart
+        </Link>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.section`
   margin-top: 2rem;
@@ -53,5 +99,5 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 140px;
   }
-`
-export default AddToCart
+`;
+export default AddToCart;
