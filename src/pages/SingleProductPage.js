@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useProductsContext } from '../context/products_context';
 import { single_product_url as url } from '../utils/constants';
@@ -26,19 +26,22 @@ const SingleProductPage = () => {
   const productUrl = `${url}${id}`;
   const history = useHistory();
 
+  //try to get the single product
   useEffect(() => {
     fetchSingleProduct(productUrl);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //redirect to homepage if there is an error & clear the error
   useEffect(() => {
     if (singleProductError) {
-      console.log('timeout!');
       setTimeout(() => {
         clearSingleError();
         history.push('/');
       }, 3000);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [singleProductError]);
 
   if (singleProductLoading) {
