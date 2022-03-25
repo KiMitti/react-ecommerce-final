@@ -97,12 +97,10 @@ const filter_reducer = (state, action) => {
     if (shipping === true) {
       tempFiltered = tempFiltered.filter((product) => product.shipping);
     }
-    console.log(`filtering products`);
     return { ...state, filteredProducts: tempFiltered };
   }
   //clear all of the filters
   if (action.type === CLEAR_FILTERS) {
-    console.log(action.payload);
     return {
       ...state,
       filters: {

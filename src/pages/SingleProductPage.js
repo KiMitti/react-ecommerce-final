@@ -63,7 +63,6 @@ const SingleProductPage = () => {
     company,
     images,
   } = singleProduct;
-  console.log(singleProduct);
 
   return (
     <Wrapper>
