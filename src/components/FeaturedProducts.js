@@ -28,6 +28,9 @@ const FeaturedProducts = () => {
             return <Product key={product.id} {...product} />;
           })}
         </div>
+        <Link to='/products' className='btn'>
+          See All Products!
+        </Link>
       </Wrapper>
     );
   }
@@ -46,7 +49,7 @@ const Wrapper = styled.section`
   }
   .btn {
     display: block;
-    width: 148px;
+    width: 200px;
     margin: 0 auto;
     text-align: center;
   }
