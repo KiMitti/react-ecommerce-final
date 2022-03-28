@@ -1,5 +1,6 @@
 //domain/.netlify/functions/create-payment-intent
-require('dotEnv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET);
 exports.handler = async function (event, context) {
